@@ -1,0 +1,97 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+h1 {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.wrapper > button {
+  height: fit-content;
+  width: fit-content;
+  padding: 8px;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  margin-top: 5px;
+  cursor: pointer;
+  margin-bottom: 5rem;
+}
+
+#instructions {
+  display: none;
+  margin-bottom: 10px;
+}
+
+#form {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  padding-bottom: 1rem;
+  border-radius: 2px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+#form-content {
+  display: flex;
+  gap: 5px;
+}
+
+.labels, .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+p#is-book-read {
+  margin-bottom: 5px;
+}
+
+#yes {
+  margin-right: 10px;
+}
+
+#yes-no {
+  display: flex;
+  gap: 5px;
+}
+
+.answers {
+  cursor: pointer;
+}
+
+.form-buttons-container {
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.form-btns {
+  padding: 5px;
+  cursor: pointer;
+}
+
+#form-add-btn {
+  width: fit-content;
+  padding: 5px;
+  margin-left: 5px;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+}
