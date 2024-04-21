@@ -7,38 +7,56 @@ function Book(author, title, pages, isRead) {
   this.isRead = isRead;
 }
 
-// const book = new Book('J.K. Rowling', 'Harry Potter', 600, true);
-// console.log(book);
-
 function addBookToLibrary() {
   //take user’s input
-  const book = new Book(author.value, title.value, pages.value, isRead.value);
-  // bookTitle = document.getElementById("book-title");
-  // bookTitle.innerText = title.value;
-  // bookAuthor.innerText = author.value;
-  // numberOfPages.innerText = pages.value;
+  let isRead = document.querySelector('input[type=radio][name=isRead]:checked');
   
+  const book = new Book(author.value, title.value, pages.value, isRead.value);
+
   //store the new book objects into an array
   myLibrary.push(book);
 }
 
 function displayBooks() {
   for (let i = 0; i < myLibrary.length; i++) {
+    const booksContainer = document.getElementById("books-container");
+    const newBook = document.createElement('div');
+    newBook.classList.add("book");
+    booksContainer.appendChild(newBook);
+    
+    const bookTitle = document.createElement("h2");
+    bookTitle.setAttribute("id", "book-title");
+    bookTitle.innerText = title.value;
+    newBook.appendChild(bookTitle);
+    
+    const bookAuthor = document.createElement("span");
+    bookAuthor.setAttribute("id", "book-author");
+    bookAuthor.innerText = author.value;
+    newBook.appendChild(bookAuthor);
+    
+    const numberOfPages = document.createElement("span");
+    numberOfPages.setAttribute("id", "nb-of-pages");
+    numberOfPages.innerText = pages.value;
+    newBook.appendChild(numberOfPages);
     
   }
 }
 
 function displayForm () {
-    form.style.display = "flex";
+    form.classList.remove("d-none");
+    form.classList.add("d-flex");
     instructions.style.display = "block";
-    booksContainer.style.display = "none";
+    booksContainer.classList.remove("d-flex");
+    booksContainer.classList.add("d-none");
 }
 
 function hideForm () {
-  if (form.style.display == "flex" && instructions.style.display == "block" && booksContainer.style.display == "none") {
-    form.style.display = "none";
+  if (form.className == "d-flex" && instructions.style.display == "block" && booksContainer.className == "d-none") {
+    form.classList.remove("d-flex");
+    form.classList.add("d-none");
     instructions.style.display = "none";
-    booksContainer.style.display = "flex";
+    booksContainer.classList.remove("d-none");
+    booksContainer.classList.add("d-flex");
   }
 }
 
@@ -56,15 +74,6 @@ const title = document.getElementById("title");
 
 const pages = document.getElementById("pages");
 
-// let isRead = document.getElementsByName("isRead").checked;
-let isRead = document.querySelector('input[type=radio][name=isRead]:checked');
-
-// if (document.getElementById("yes").checked) {
-//   isRead = document.getElementById("yes");
-// } else {
-//   isRead = document.getElementById("no");
-// }
-
 const formAddButton = document.getElementById("form-add-btn");
 
 newBookButton.addEventListener("click", displayForm);
@@ -76,20 +85,3 @@ formAddButton.addEventListener("click", () => {
   addBookToLibrary();
 });
 
-
-const booksContainer = document.getElementById("books-container");
-const newBook = document.createElement('div');
-newBook.classList.add("book");
-booksContainer.appendChild(newBook);
-
-const bookTitle = document.createElement("h2");
-bookTitle.setAttribute("id", "book-title");
-newBook.appendChild(bookTitle);
-
-const bookAuthor = document.createElement("span");
-bookAuthor.setAttribute("id", "book-author");
-newBook.appendChild(bookAuthor);
-
-const numberOfPages = document.createElement("span");
-numberOfPages.setAttribute("id", "nb-of-pages");
-newBook.appendChild(numberOfPages);
