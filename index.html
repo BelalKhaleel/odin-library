@@ -15,7 +15,7 @@
       <div id="form-content">
         <div class="labels">
           <label for="author">Author: </label>
-          <label for="book-title">Title: </label>
+          <label for="title">Title: </label>
           <label for="pages">Pages: </label>
         </div>
         <div class="inputs">
@@ -24,19 +24,24 @@
           <input type="number" id="pages" min="1" max="4290" required>
         </div>
       </div>
+      <!-- <div style="display: flex; gap: 10px;">
+        <input type="checkbox" id="is-read" value="yes"><span>I have read the book</span>
+      </div> -->
       <div id="form-question">
         <p id="is-book-read">Have you read this book?</p>
         <div id="yes-no">
           <label class="answers" for="yes">Yes</label>
-          <input class="answers" type="checkbox" id="yes">
+          <input class="answers radio-btn" type="radio" id="yes" name="isRead" value="yes">
           <label class="answers" for="no">No</label>
-          <input class="answers" type="checkbox" id="no" >
+          <input class="answers radio-btn" type="radio" id="no" name="isRead" value="no">
         </div>
       </div>
       <div class="form-buttons-container">
         <button class="form-btns" id="form-cancel-btn" type="button">Cancel</button>
         <button class="form-btns" id="form-add-btn" type="button">Add Book</button>
       </div>
+    </div>
+    <div id="books-container">
     </div>
   </div>
   <script src="index.js"></script>
