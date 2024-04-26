@@ -103,6 +103,7 @@ p#is-book-read {
 
 #books-container {
   flex-wrap: wrap;
+  gap: 3rem;
   width: 100%;
   height: auto;
   padding: 3rem;

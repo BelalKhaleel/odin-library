@@ -17,29 +17,25 @@ function addBookToLibrary() {
   myLibrary.push(book);
 }
 
-function displayBooks() {
-  for (let i = 0; i < myLibrary.length; i++) {
-    const booksContainer = document.getElementById("books-container");
-    const newBook = document.createElement('div');
-    newBook.classList.add("book");
-    booksContainer.appendChild(newBook);
-    
-    const bookTitle = document.createElement("h2");
-    bookTitle.setAttribute("id", "book-title");
-    bookTitle.innerText = title.value;
-    newBook.appendChild(bookTitle);
-    
-    const bookAuthor = document.createElement("span");
-    bookAuthor.setAttribute("id", "book-author");
-    bookAuthor.innerText = author.value;
-    newBook.appendChild(bookAuthor);
-    
-    const numberOfPages = document.createElement("span");
-    numberOfPages.setAttribute("id", "nb-of-pages");
-    numberOfPages.innerText = pages.value;
-    newBook.appendChild(numberOfPages);
-    
-  }
+function displayBook() {
+  const newBook = document.createElement('div');
+  newBook.classList.add("book");
+  booksContainer.appendChild(newBook);
+  
+  const bookTitle = document.createElement("h2");
+  bookTitle.setAttribute("id", "book-title");
+  bookTitle.innerText = title.value;
+  newBook.appendChild(bookTitle);
+  
+  const bookAuthor = document.createElement("span");
+  bookAuthor.setAttribute("id", "book-author");
+  bookAuthor.innerText = author.value;
+  newBook.appendChild(bookAuthor);
+  
+  const numberOfPages = document.createElement("span");
+  numberOfPages.setAttribute("id", "nb-of-pages");
+  numberOfPages.innerText = pages.value;
+  newBook.appendChild(numberOfPages);
 }
 
 function displayForm () {
@@ -48,9 +44,9 @@ function displayForm () {
     instructions.style.display = "block";
     booksContainer.classList.remove("d-flex");
     booksContainer.classList.add("d-none");
-}
-
-function hideForm () {
+  }
+  
+  function hideForm () {
   if (form.className == "d-flex" && instructions.style.display == "block" && booksContainer.className == "d-none") {
     form.classList.remove("d-flex");
     form.classList.add("d-none");
@@ -76,6 +72,8 @@ const pages = document.getElementById("pages");
 
 const formAddButton = document.getElementById("form-add-btn");
 
+const booksContainer = document.getElementById("books-container");
+
 newBookButton.addEventListener("click", displayForm);
 
 cancelButton.addEventListener("click", hideForm);
@@ -83,5 +81,6 @@ cancelButton.addEventListener("click", hideForm);
 formAddButton.addEventListener("click", () => {
   hideForm();
   addBookToLibrary();
+  displayBook();
 });
 
