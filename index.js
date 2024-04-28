@@ -32,6 +32,23 @@ function displayBook() {
   bookAuthor.innerText = author.value;
   newBook.appendChild(bookAuthor);
   
+  const bookButtons = document.createElement('div');
+  bookButtons.classList.add("book-btns");
+  newBook.appendChild(bookButtons);
+  
+  const readStatusButton = document.createElement('button');
+  readStatusButton.setAttribute("type", "button");
+  readStatusButton.classList.add("status");
+  let isRead = document.querySelector('input[type=radio][name=isRead]:checked');
+  readStatusButton.innerText = 'Read: ' + isRead.value;
+  bookButtons.appendChild(readStatusButton);
+  
+  const deleteButton = document.createElement('button');
+  deleteButton.setAttribute("type", "button");
+  deleteButton.classList.add("delete");
+  deleteButton.innerText = 'Delete';
+  bookButtons.appendChild(deleteButton);
+
   const numberOfPages = document.createElement("span");
   numberOfPages.setAttribute("id", "nb-of-pages");
   numberOfPages.innerText = pages.value;
@@ -84,3 +101,22 @@ formAddButton.addEventListener("click", () => {
   displayBook();
 });
 
+function toggleReadStatus(e) {
+  if(e.target.classList.contains("status")) {
+    const book = e.target.closest(".book");
+    if (book) {
+      const bookIndex = Array.from(booksContainer.children).indexOf(book);
+      const choosenBook = myLibrary[bookIndex];
+      const readStatusButton = e.target.closest(".status");
+      if (choosenBook['isRead'] == 'no') {
+        choosenBook['isRead'] = 'yes';
+        readStatusButton.innerText = 'Read: ' + 'yes';
+      } else {
+        choosenBook['isRead'] = 'no';
+        readStatusButton.innerText = 'Read: ' + 'no';
+      }
+    }
+  }
+}
+
+booksContainer.addEventListener("click", toggleReadStatus);

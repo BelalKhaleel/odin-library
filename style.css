@@ -114,20 +114,47 @@ p#is-book-read {
   height: 190px;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  text-align: center;
 }
 
 #book-author {
   font-size: small;
   color: darkgrey;
+  margin-top: -30px;
 }
 
 #nb-of-pages {
   align-self: flex-end;
-  margin-top: 6rem;
+  justify-self: end;
+  /* margin-top: 6rem; */
   font-size: x-small;
+}
+
+.status, .delete {
+  width: fit-content;
+  padding: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.status:hover, 
+.delete:hover, 
+#new-book-btn:hover, 
+#form-add-btn:hover {
+  opacity: .7;
+}
+
+.book-btns {
+  display: flex;
+  gap: 5px;
+}
+
+.delete {
+  background-color: red;
+  color: white;
+  border-color: red;
 }
