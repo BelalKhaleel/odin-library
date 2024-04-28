@@ -130,7 +130,6 @@ p#is-book-read {
 #nb-of-pages {
   align-self: flex-end;
   justify-self: end;
-  /* margin-top: 6rem; */
   font-size: x-small;
 }
 

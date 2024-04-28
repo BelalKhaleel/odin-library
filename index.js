@@ -1,3 +1,21 @@
+const newBookButton = document.getElementById("new-book-btn");
+
+const cancelButton = document.getElementById("form-cancel-btn");
+
+const instructions = document.getElementById("instructions");
+
+const form = document.getElementById("form");
+
+const author = document.getElementById("author");
+
+const title = document.getElementById("title");
+
+const pages = document.getElementById("pages");
+
+const formAddButton = document.getElementById("form-add-btn");
+
+const booksContainer = document.getElementById("books-container");
+
 const myLibrary = [];
 
 function Book(author, title, pages, isRead) {
@@ -73,24 +91,6 @@ function displayForm () {
   }
 }
 
-const newBookButton = document.getElementById("new-book-btn");
-
-const cancelButton = document.getElementById("form-cancel-btn");
-
-const instructions = document.getElementById("instructions");
-
-const form = document.getElementById("form");
-
-const author = document.getElementById("author");
-
-const title = document.getElementById("title");
-
-const pages = document.getElementById("pages");
-
-const formAddButton = document.getElementById("form-add-btn");
-
-const booksContainer = document.getElementById("books-container");
-
 newBookButton.addEventListener("click", displayForm);
 
 cancelButton.addEventListener("click", hideForm);
@@ -100,10 +100,14 @@ formAddButton.addEventListener("click", () => {
   addBookToLibrary();
   displayBook();
 
-  const inputs = document.getElementsByTagName("input");
-  for (let i = 0; i < inputs.length; i++) {
-    inputs[i].value = "";
-  }
+  author.value = '';
+  title.value = '';
+  pages.value = '';
+
+  const radioButtons = document.querySelectorAll('input[type=radio][name=isRead]');
+  radioButtons.forEach(button => {
+    button.checked = false;
+  });
 });
 
 function toggleReadStatus(e) {
@@ -115,10 +119,10 @@ function toggleReadStatus(e) {
       const readStatusButton = e.target.closest(".status");
       if (choosenBook['isRead'] == 'no') {
         choosenBook['isRead'] = 'yes';
-        readStatusButton.innerText = 'Read: ' + 'yes';
+        readStatusButton.innerText = 'Read: yes';
       } else {
         choosenBook['isRead'] = 'no';
-        readStatusButton.innerText = 'Read: ' + 'no';
+        readStatusButton.innerText = 'Read: no';
       }
     }
   }
@@ -129,8 +133,6 @@ function deleteBook(e) {
     const book = e.target.closest(".book");
     if (book) {
       const bookIndex = Array.from(booksContainer.children).indexOf(book);
-      const choosenBook = myLibrary[bookIndex];
-      const deleteButton = e.target.closest(".delete");
         myLibrary.splice(bookIndex, 1);
         book.remove();
     }
