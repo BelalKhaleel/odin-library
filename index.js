@@ -119,4 +119,23 @@ function toggleReadStatus(e) {
   }
 }
 
-booksContainer.addEventListener("click", toggleReadStatus);
+function deleteBook(e) {
+  if(e.target.classList.contains("delete")) {
+    const book = e.target.closest(".book");
+    if (book) {
+      const bookIndex = Array.from(booksContainer.children).indexOf(book);
+      const choosenBook = myLibrary[bookIndex];
+      const deleteButton = e.target.closest(".delete");
+        myLibrary.splice(bookIndex, 1);
+        book.remove();
+    }
+  }
+}
+
+booksContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("status")) {
+    toggleReadStatus(e);
+  } else if (e.target.classList.contains("delete")) {
+    deleteBook(e);
+  }
+});
