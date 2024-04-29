@@ -33,21 +33,24 @@ function addBookToLibrary() {
 
   //store the new book objects into an array
   myLibrary.push(book);
+
+  displayBook(book);
 }
 
-function displayBook() {
+function displayBook(bookObject) {
+
   const newBook = document.createElement('div');
   newBook.classList.add("book");
   booksContainer.appendChild(newBook);
   
   const bookTitle = document.createElement("h2");
   bookTitle.setAttribute("id", "book-title");
-  bookTitle.innerText = title.value;
+  bookTitle.innerText = bookObject.title;
   newBook.appendChild(bookTitle);
   
   const bookAuthor = document.createElement("span");
   bookAuthor.setAttribute("id", "book-author");
-  bookAuthor.innerText = author.value;
+  bookAuthor.innerText = bookObject.author;
   newBook.appendChild(bookAuthor);
   
   const bookButtons = document.createElement('div');
@@ -59,18 +62,24 @@ function displayBook() {
   readStatusButton.classList.add("status");
   let isRead = document.querySelector('input[type=radio][name=isRead]:checked');
   readStatusButton.innerText = 'Read: ' + isRead.value;
+  readStatusButton.addEventListener("click", toggleReadStatus);
   bookButtons.appendChild(readStatusButton);
   
   const deleteButton = document.createElement('button');
   deleteButton.setAttribute("type", "button");
   deleteButton.classList.add("delete");
   deleteButton.innerText = 'Delete';
+  deleteButton.addEventListener("click", deleteBook);
   bookButtons.appendChild(deleteButton);
 
   const numberOfPages = document.createElement("span");
   numberOfPages.setAttribute("id", "nb-of-pages");
   numberOfPages.innerText = pages.value;
   newBook.appendChild(numberOfPages);
+
+  newBook.dataset.bookIndex = myLibrary.indexOf(bookObject);
+  console.log(newBook)
+  return newBook;
 }
 
 function displayForm () {
@@ -98,7 +107,6 @@ cancelButton.addEventListener("click", hideForm);
 formAddButton.addEventListener("click", () => {
   hideForm();
   addBookToLibrary();
-  displayBook();
 
   author.value = '';
   title.value = '';
@@ -114,8 +122,8 @@ function toggleReadStatus(e) {
   if(e.target.classList.contains("status")) {
     const book = e.target.closest(".book");
     if (book) {
-      const bookIndex = Array.from(booksContainer.children).indexOf(book);
-      const choosenBook = myLibrary[bookIndex];
+      const bookArrayIndex = book.dataset.bookIndex;
+      const choosenBook = myLibrary[bookArrayIndex];
       const readStatusButton = e.target.closest(".status");
       if (choosenBook['isRead'] == 'no') {
         choosenBook['isRead'] = 'yes';
@@ -132,17 +140,9 @@ function deleteBook(e) {
   if(e.target.classList.contains("delete")) {
     const book = e.target.closest(".book");
     if (book) {
-      const bookIndex = Array.from(booksContainer.children).indexOf(book);
-        myLibrary.splice(bookIndex, 1);
+      const bookArrayIndex = book.dataset.bookIndex;
+        myLibrary.splice(bookArrayIndex, 1);
         book.remove();
     }
   }
 }
-
-booksContainer.addEventListener("click", (e) => {
-  if (e.target.classList.contains("status")) {
-    toggleReadStatus(e);
-  } else if (e.target.classList.contains("delete")) {
-    deleteBook(e);
-  }
-});
