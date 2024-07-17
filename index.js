@@ -9,31 +9,31 @@ const formAddButton = document.getElementById("form-add-btn");
 const booksContainer = document.getElementById("books-container");
 const myLibrary = [];
 
-function Book(author, title, pages, isRead) {
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.isRead = isRead;
-}
-
-Book.prototype.toggleReadStatus = function () {
-  this.isRead = this.isRead === "yes" ? "no" : "yes";
-};
-
-Book.prototype.deleteBook = function () {
-  const bookIndex = myLibrary.indexOf(this);
-  if (bookIndex > -1) {
-    myLibrary.splice(bookIndex, 1);
+class Book {
+  constructor(author, title, pages, isRead) {
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.isRead = isRead;
   }
-};
+
+  toggleReadStatus() {
+    this.isRead = this.isRead === "yes" ? "no" : "yes";
+  }
+
+  deleteBook() {
+    const bookIndex = myLibrary.indexOf(this);
+    if (bookIndex > -1) {
+      myLibrary.splice(bookIndex, 1);
+    }
+  }
+
+}
 
 function addBookToLibrary() {
   let isRead = document.querySelector("input[type=radio][name=isRead]:checked");
-
   const book = new Book(author.value, title.value, pages.value, isRead.value);
-
   myLibrary.push(book);
-
   displayBook(book);
 }
 
@@ -45,16 +45,13 @@ function displayBook(bookObject) {
   const bookTitle = document.createElement("h2");
   bookTitle.setAttribute("id", "book-title");
   bookTitle.innerText = bookObject.title;
-  newBook.appendChild(bookTitle);
 
   const bookAuthor = document.createElement("span");
   bookAuthor.setAttribute("id", "book-author");
   bookAuthor.innerText = bookObject.author;
-  newBook.appendChild(bookAuthor);
 
   const bookButtons = document.createElement("div");
   bookButtons.classList.add("book-btns");
-  newBook.appendChild(bookButtons);
 
   const readStatusButton = document.createElement("button");
   readStatusButton.setAttribute("type", "button");
@@ -64,7 +61,6 @@ function displayBook(bookObject) {
     bookObject.toggleReadStatus();
     readStatusButton.innerText = "Read: " + bookObject.isRead;
   });
-  bookButtons.appendChild(readStatusButton);
 
   const deleteButton = document.createElement("button");
   deleteButton.setAttribute("type", "button");
@@ -74,12 +70,12 @@ function displayBook(bookObject) {
     bookObject.deleteBook();
     newBook.remove();
   });
-  bookButtons.appendChild(deleteButton);
+  bookButtons.append(readStatusButton, deleteButton);
 
   const numberOfPages = document.createElement("span");
   numberOfPages.setAttribute("id", "nb-of-pages");
   numberOfPages.innerText = pages.value;
-  newBook.appendChild(numberOfPages);
+  newBook.append(bookTitle, bookAuthor, bookButtons, numberOfPages);
 
   newBook.dataset.bookIndex = myLibrary.indexOf(bookObject);
   return newBook;
