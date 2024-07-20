@@ -27,28 +27,24 @@ class Book {
       myLibrary.splice(bookIndex, 1);
     }
   }
-
 }
 
 function addBookToLibrary() {
   let isRead = document.querySelector("input[type=radio][name=isRead]:checked");
   const book = new Book(author.value, title.value, pages.value, isRead.value);
   myLibrary.push(book);
-  displayBook(book);
-}
 
-function displayBook(bookObject) {
   const newBook = document.createElement("div");
   newBook.classList.add("book");
   booksContainer.appendChild(newBook);
 
   const bookTitle = document.createElement("h2");
   bookTitle.setAttribute("id", "book-title");
-  bookTitle.innerText = bookObject.title;
+  bookTitle.innerText = book.title;
 
   const bookAuthor = document.createElement("span");
   bookAuthor.setAttribute("id", "book-author");
-  bookAuthor.innerText = bookObject.author;
+  bookAuthor.innerText = book.author;
 
   const bookButtons = document.createElement("div");
   bookButtons.classList.add("book-btns");
@@ -56,10 +52,10 @@ function displayBook(bookObject) {
   const readStatusButton = document.createElement("button");
   readStatusButton.setAttribute("type", "button");
   readStatusButton.classList.add("status");
-  readStatusButton.innerText = "Read: " + bookObject.isRead;
+  readStatusButton.innerText = "Read: " + book.isRead;
   readStatusButton.addEventListener("click", () => {
-    bookObject.toggleReadStatus();
-    readStatusButton.innerText = "Read: " + bookObject.isRead;
+    book.toggleReadStatus();
+    readStatusButton.innerText = "Read: " + book.isRead;
   });
 
   const deleteButton = document.createElement("button");
@@ -67,7 +63,7 @@ function displayBook(bookObject) {
   deleteButton.classList.add("delete");
   deleteButton.innerText = "Delete";
   deleteButton.addEventListener("click", () => {
-    bookObject.deleteBook();
+    book.deleteBook();
     newBook.remove();
   });
   bookButtons.append(readStatusButton, deleteButton);
@@ -77,7 +73,7 @@ function displayBook(bookObject) {
   numberOfPages.innerText = pages.value;
   newBook.append(bookTitle, bookAuthor, bookButtons, numberOfPages);
 
-  newBook.dataset.bookIndex = myLibrary.indexOf(bookObject);
+  newBook.dataset.bookIndex = myLibrary.indexOf(book);
   return newBook;
 }
 
