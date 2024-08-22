@@ -19,7 +19,8 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
+  padding: 1em;
+  min-height: 100vh;
 }
 
 .wrapper > button {
@@ -28,44 +29,39 @@ h1 {
   border-radius: 4px;
   padding: 8px;
   margin-top: 5px;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   cursor: pointer;
 }
 
 #instructions {
-  display: none;
-  margin-bottom: 10px;
+  position: absolute;
+  top: -55px;
+  left: -15px;
+  width: max-content;
 }
 
-.d-none {
-  display: none;
+dialog {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
 }
 
-.d-flex {
+form {
   display: flex;
-}
-
-#form {
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5em;
   padding: 2rem 4rem;
-  border-radius: 2px;
-  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
-#form-content {
+form > :first-child {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.labels, .inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-p#is-book-read {
+#form-question p {
   margin-bottom: 5px;
 }
 
@@ -73,7 +69,7 @@ p#is-book-read {
   margin-right: 10px;
 }
 
-#yes-no {
+#form-question div {
   display: flex;
   gap: 5px;
 }
@@ -83,9 +79,7 @@ p#is-book-read {
 }
 
 .form-buttons-container {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
+  gap: 10px;
 }
 
 .form-btns {
@@ -102,6 +96,7 @@ p#is-book-read {
 }
 
 #books-container {
+  display: flex;
   flex-wrap: wrap;
   gap: 3rem;
   width: 100%;
@@ -110,12 +105,11 @@ p#is-book-read {
 }
 
 .book {
-  width: 170px;
-  height: 190px;
+  width: 15em;
+  height: 20em;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: grid;
-  justify-content: center;
   align-items: center;
   padding: 10px;
   text-align: center;
@@ -130,12 +124,12 @@ p#is-book-read {
 #nb-of-pages {
   align-self: flex-end;
   justify-self: end;
-  font-size: x-small;
+  font-size: .8rem;
+  margin-right: 10px;
 }
 
 .status, .delete {
-  width: fit-content;
-  padding: 3px;
+  padding: 6px;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -149,7 +143,8 @@ p#is-book-read {
 
 .book-btns {
   display: flex;
-  gap: 5px;
+  justify-content: center;
+  gap: 15px;
 }
 
 .delete {

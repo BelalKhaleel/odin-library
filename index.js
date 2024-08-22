@@ -1,3 +1,4 @@
+const dialog = document.querySelector('dialog');
 const newBookButton = document.getElementById("new-book-btn");
 const cancelButton = document.getElementById("form-cancel-btn");
 const instructions = document.getElementById("instructions");
@@ -5,7 +6,7 @@ const form = document.getElementById("form");
 const author = document.getElementById("author");
 const title = document.getElementById("title");
 const pages = document.getElementById("pages");
-const formAddButton = document.getElementById("form-add-btn");
+const addBookButton = document.getElementById("form-add-btn");
 const booksContainer = document.getElementById("books-container");
 const myLibrary = [];
 
@@ -77,33 +78,30 @@ function addBookToLibrary() {
   return newBook;
 }
 
-function hideForm() {
-  if (
-    form.className == "d-flex" &&
-    instructions.style.display == "block" &&
-    booksContainer.className == "d-none"
-  ) {
-    form.classList.remove("d-flex");
-    form.classList.add("d-none");
-    instructions.style.display = "none";
-    booksContainer.classList.remove("d-none");
-    booksContainer.classList.add("d-flex");
-  }
-}
-
 newBookButton.addEventListener("click", () => {
-  form.classList.remove("d-none");
-  form.classList.add("d-flex");
-  instructions.style.display = "block";
-  booksContainer.classList.remove("d-flex");
-  booksContainer.classList.add("d-none");
+  dialog.showModal();
 });
 
-cancelButton.addEventListener("click", hideForm);
+cancelButton.addEventListener("click", () => {
+  dialog.close();
+});
 
-formAddButton.addEventListener("click", () => {
-  hideForm();
+addBookButton.addEventListener("click", e => {
+  e.preventDefault();
+
+  if (!title.value || !author.value || !pages.value) {
+    instructions.style.color = 'red';
+    instructions.style.fontSize = '1.5rem';
+    instructions.style.left = '-104px';
+    return;
+  }
+
+  instructions.style.color = 'black';
+  instructions.style.fontSize = '1rem';
+  instructions.style.left = '-15px';
+  
   addBookToLibrary();
+  dialog.close();
   author.value = "";
   title.value = "";
   pages.value = "";
@@ -114,4 +112,10 @@ formAddButton.addEventListener("click", () => {
   radioButtons.forEach((button) => {
     button.checked = false;
   });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    instructions.style.display = "none";
+  }
 });
