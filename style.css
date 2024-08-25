@@ -115,13 +115,13 @@ form > :first-child {
   text-align: center;
 }
 
-#book-author {
+.book-author {
   font-size: small;
   color: darkgrey;
   margin-top: -30px;
 }
 
-#nb-of-pages {
+.nb-of-pages {
   align-self: flex-end;
   justify-self: end;
   font-size: .8rem;

@@ -40,11 +40,11 @@ function addBookToLibrary() {
   booksContainer.appendChild(newBook);
 
   const bookTitle = document.createElement("h2");
-  bookTitle.setAttribute("id", "book-title");
+  bookTitle.setAttribute("class", "book-title");
   bookTitle.innerText = book.title;
 
   const bookAuthor = document.createElement("span");
-  bookAuthor.setAttribute("id", "book-author");
+  bookAuthor.setAttribute("class", "book-author");
   bookAuthor.innerText = book.author;
 
   const bookButtons = document.createElement("div");
@@ -70,7 +70,7 @@ function addBookToLibrary() {
   bookButtons.append(readStatusButton, deleteButton);
 
   const numberOfPages = document.createElement("span");
-  numberOfPages.setAttribute("id", "nb-of-pages");
+  numberOfPages.setAttribute("class", "nb-of-pages");
   numberOfPages.innerText = pages.value;
   newBook.append(bookTitle, bookAuthor, bookButtons, numberOfPages);
 
