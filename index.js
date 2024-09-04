@@ -1,7 +1,6 @@
-const dialog = document.querySelector('dialog');
+const dialog = document.querySelector("dialog");
 const newBookButton = document.getElementById("new-book-btn");
 const cancelButton = document.getElementById("form-cancel-btn");
-// const instructions = document.getElementById("instructions");
 const form = document.getElementById("form");
 const author = document.getElementById("author");
 const title = document.getElementById("title");
@@ -86,36 +85,74 @@ cancelButton.addEventListener("click", () => {
   dialog.close();
 });
 
-addBookButton.addEventListener("click", e => {
-  e.preventDefault();
-
-  if (!title.value || !author.value || !pages.value) {
-    // instructions.style.color = 'red';
-    // instructions.style.fontSize = '1.5rem';
-    // instructions.style.left = '-104px';
-    return;
+title.addEventListener("input", () => {
+  if (title.validity.valueMissing) {
+    title.setCustomValidity("Please enter a valid title.");
+  } else {
+    title.setCustomValidity("");
   }
-
-  // instructions.style.color = 'black';
-  // instructions.style.fontSize = '1rem';
-  // instructions.style.left = '-15px';
-  
-  addBookToLibrary();
-  dialog.close();
-  author.value = "";
-  title.value = "";
-  pages.value = "";
-
-  const radioButtons = document.querySelectorAll(
-    "input[type=radio][name=isRead]"
-  );
-  radioButtons.forEach((button) => {
-    button.checked = false;
-  });
 });
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    // instructions.style.display = "none";
+author.addEventListener("input", () => {
+  if (author.validity.valueMissing) {
+    author.setCustomValidity("Please enter a valid author's name.");
+  } else {
+    author.setCustomValidity("");
+  }
+});
+
+pages.addEventListener("input", () => {
+  if (pages.validity.valueMissing) {
+    pages.setCustomValidity("Please provide the number of pages of the book.");
+  } else if (pages.validity.rangeOverflow) {
+    pages.setCustomValidity("Number of pages cannot be more than 4,290.");
+  } else if (pages.validity.rangeUnderflow) {
+    pages.setCustomValidity("Number of pages cannot be less than 1.");
+  } else {
+    pages.setCustomValidity("");
+  }
+});
+
+addBookButton.addEventListener("click", (e) => {
+  let isValid = true;
+
+  if (pages.validity.valueMissing) {
+    pages.setCustomValidity("Please provide the number of pages of the book.");
+    pages.reportValidity();
+    isValid = false;
+  } else if (pages.validity.rangeOverflow) {
+    pages.setCustomValidity("Number of pages cannot be more than 4,290.");
+    pages.reportValidity();
+    isValid = false;
+  } else if (pages.validity.rangeUnderflow) {
+    pages.setCustomValidity("Number of pages cannot be less than 1.");
+    pages.reportValidity();
+    isValid = false;
+  } else {
+    pages.setCustomValidity("");
+  }
+
+  if (author.validity.valueMissing) {
+    author.setCustomValidity("Please provide the name of the author's book.");
+    author.reportValidity();
+    isValid = false;
+  } else {
+    author.setCustomValidity("");
+  }
+
+  if (title.validity.valueMissing) {
+    title.setCustomValidity("Please enter a title for the book.");
+    title.reportValidity();
+    isValid = false;
+  } else {
+    title.setCustomValidity("");
+  }
+
+  console.log(isValid);
+  if (!isValid) {
+    e.preventDefault();
+  } else {
+    addBookToLibrary();
+    form.reset();
   }
 });

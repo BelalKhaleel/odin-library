@@ -32,13 +32,6 @@ h1 {
   cursor: pointer;
 }
 
-#instructions {
-  position: absolute;
-  top: -55px;
-  left: -15px;
-  width: max-content;
-}
-
 dialog {
   position: relative;
   top: 50%;
@@ -57,7 +50,7 @@ form {
 form > :first-child {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
 }
 
 .required-symbol {
@@ -105,10 +98,15 @@ form > :first-child {
   column-gap: 4em;
   width: 100%;
   padding: 1em 3em;
+}
+
+.image-container {
   flex: 1;
   background-image: url(./desktop-wallpaper-desk-and-shelves-anband-shelf.jpg);
   background-size: cover;
   background-repeat: repeat-y;
+  width: 100%;
+  min-height: 80vh;
 }
 
 .book {
@@ -159,4 +157,12 @@ form > :first-child {
   background-color: red;
   color: white;
   border-color: red;
+}
+
+input[type=text], input[type=number] {
+  padding: 3px 5px;
+}
+
+input:invalid {
+  border: 2px solid red;
 }

@@ -9,34 +9,35 @@
 <body>
   <div class="wrapper">
     <h1>Welcome to the Library!</h1>
-    <button id="new-book-btn" type="button">NEW BOOK</button>
+    <button id="new-book-btn" type="button">ADD NEW BOOK</button>
     <dialog>
-      <form method="dialog">
-        <!-- <p id="instructions">Please fill in the following form to add the book!</p> -->
+      <form id="form" method="dialog" novalidate>
           <div>
             <label for="title"><span class="required-symbol">*</span>Title:</label>
-            <input type="text" id="title">
+            <input type="text" id="title" placeholder=" Ex: Harry Potter" required>
             <label for="author"><span class="required-symbol">*</span>Author: </label>
-            <input type="text" id="author">
+            <input type="text" id="author" placeholder=" Ex: J.K. Rowling" required>
             <label for="pages"><span class="required-symbol">*</span>Number of Pages: </label>
-            <input type="number" id="pages" min="1" max="4290">
+            <input type="number" id="pages" min="1" max="4290" placeholder=" Ex: 600" required>
           </div>
           <div id="form-question">
-            <p><span class="required-symbol">*</span>Have you read this book?</p>
+            <p>Have you read this book?</p>
             <div>
               <label class="answers" for="yes">Yes</label>
               <input class="answers radio-btn" type="radio" id="yes" name="isRead" value="yes">
               <label class="answers" for="no">No</label>
-              <input class="answers radio-btn" type="radio" id="no" name="isRead" value="no">
+              <input class="answers radio-btn" type="radio" id="no" name="isRead" value="no" checked>
             </div>
           </div>
           <div class="form-buttons-container">
             <button class="form-btns" id="form-cancel-btn" type="button">Cancel</button>
-            <button class="form-btns" id="form-add-btn" type="button">Add Book</button>
+            <button class="form-btns" id="form-add-btn" type="submit">Add Book</button>
           </div>
       </form>
     </dialog>
-    <div id="books-container">
+    <div class="image-container">
+      <div id="books-container">
+    </div>
     </div>
   </div>
   <script src="index.js"></script>
