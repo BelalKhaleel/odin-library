@@ -1,7 +1,7 @@
 const dialog = document.querySelector('dialog');
 const newBookButton = document.getElementById("new-book-btn");
 const cancelButton = document.getElementById("form-cancel-btn");
-const instructions = document.getElementById("instructions");
+// const instructions = document.getElementById("instructions");
 const form = document.getElementById("form");
 const author = document.getElementById("author");
 const title = document.getElementById("title");
@@ -90,15 +90,15 @@ addBookButton.addEventListener("click", e => {
   e.preventDefault();
 
   if (!title.value || !author.value || !pages.value) {
-    instructions.style.color = 'red';
-    instructions.style.fontSize = '1.5rem';
-    instructions.style.left = '-104px';
+    // instructions.style.color = 'red';
+    // instructions.style.fontSize = '1.5rem';
+    // instructions.style.left = '-104px';
     return;
   }
 
-  instructions.style.color = 'black';
-  instructions.style.fontSize = '1rem';
-  instructions.style.left = '-15px';
+  // instructions.style.color = 'black';
+  // instructions.style.fontSize = '1rem';
+  // instructions.style.left = '-15px';
   
   addBookToLibrary();
   dialog.close();
@@ -116,6 +116,6 @@ addBookButton.addEventListener("click", e => {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    instructions.style.display = "none";
+    // instructions.style.display = "none";
   }
 });
