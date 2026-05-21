@@ -1,168 +1,84 @@
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
+html {
   box-sizing: border-box;
 }
 
-body {
-  min-height: 100vh;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
 }
 
-h1 {
-  margin-bottom: 10px;
-}
-
-.wrapper {
+.container {
+  min-height: 100dvh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding-top: 1em;
+  gap: 10rem;
 }
 
-.wrapper > button {
-  background-color: black;
-  color: white;
-  border-radius: 4px;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 2rem;
-  cursor: pointer;
-}
-
-dialog {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: visible;
-}
-
-form {
+fieldset {
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
-  padding: 2rem 4rem;
+  gap: 1rem;
+  padding: 3rem;
 }
 
-form > :first-child {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+fieldset div {
+  display: grid;
+  gap: 3px; 
 }
 
-.required-symbol {
-  color: red;
-}
-
-#form-question p {
-  margin-bottom: 5px;
-}
-
-#yes {
-  margin-right: 10px;
-}
-
-#form-question div {
+.read {
   display: flex;
   gap: 5px;
 }
 
-.answers {
+input {
+  padding: 4px;
+}
+
+input[type="checkbox"] {
   cursor: pointer;
 }
 
-.form-buttons-container {
+form button {
+  font-size: 1.1rem;
+  padding: 6px;
+  cursor: pointer;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+  letter-spacing: 1px;
+}
+
+.actions {
+  display: flex;
   gap: 10px;
 }
 
-.form-btns {
-  padding: 5px;
-  cursor: pointer;
-}
-
-#form-add-btn {
-  padding: 5px;
-  margin-left: 5px;
-  background-color: black;
+.read-status-btn {
   color: white;
-  border-radius: 4px;
+  background-color: rgb(6, 6, 178);
 }
 
-#books-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  row-gap: 3em;
-  column-gap: 4em;
-  width: 100%;
-  padding: 1em 3em;
-}
-
-.image-container {
-  flex: 1;
-  background-image: url(./images/desktop-wallpaper-desk-and-shelves-anband-shelf.jpg);
-  background-size: cover;
-  background-repeat: repeat-y;
-  width: 100%;
-  min-height: 80vh;
-}
-
-.book {
-  width: 12em;
-  height: 11em;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  display: grid;
-  align-items: center;
-  padding: 10px;
-  text-align: center;
-  background-color: white;
-}
-
-.book-author {
-  font-size: small;
-  color: darkgrey;
-  margin-top: -30px;
-}
-
-.nb-of-pages {
-  align-self: flex-end;
-  justify-self: end;
-  font-size: .8rem;
-  margin-right: 10px;
-}
-
-.status, .delete {
-  padding: 6px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.status:hover, 
-.delete:hover, 
-#new-book-btn:hover, 
-#form-add-btn:hover {
-  opacity: .7;
-}
-
-.book-btns {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.delete {
+.delete-btn {
+  color: white;
   background-color: red;
-  color: white;
-  border-color: red;
 }
 
-input[type=text], input[type=number] {
-  padding: 3px 5px;
+.read-status-btn,
+.delete-btn {
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
-input:invalid {
-  border: 2px solid red;
+.read-status-btn:hover,
+.delete-btn:hover {
+  opacity: 0.8;
 }

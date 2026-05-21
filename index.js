@@ -1,158 +1,82 @@
-const dialog = document.querySelector("dialog");
-const newBookButton = document.getElementById("new-book-btn");
-const cancelButton = document.getElementById("form-cancel-btn");
-const form = document.getElementById("form");
-const author = document.getElementById("author");
-const title = document.getElementById("title");
-const pages = document.getElementById("pages");
-const addBookButton = document.getElementById("form-add-btn");
-const booksContainer = document.getElementById("books-container");
 const myLibrary = [];
 
-class Book {
-  constructor(author, title, pages, isRead) {
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.isRead = isRead;
+function Book(title, author, pages, read) {
+  if (!new.target) {
+    throw Error("You must use the 'new' operator to call the constructor");
   }
-
-  toggleReadStatus() {
-    this.isRead = this.isRead === "yes" ? "no" : "yes";
-  }
-
-  deleteBook() {
-    const bookIndex = myLibrary.indexOf(this);
-    if (bookIndex > -1) {
-      myLibrary.splice(bookIndex, 1);
-    }
-  }
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+  this.id = crypto.randomUUID();
 }
 
-function addBookToLibrary() {
-  let isRead = document.querySelector("input[type=radio][name=isRead]:checked");
-  const book = new Book(author.value, title.value, pages.value, isRead.value);
+Book.prototype.toggleReadStatus = function () {
+  this.read = !this.read;
+};
+
+function addBookToLibrary(title, author, pages, read) {
+  if (!title || !author || !pages) {
+    throw new Error("Missing data");
+  }
+  if (
+    typeof title !== "string" ||
+    typeof author !== "string" ||
+    typeof pages !== "number"
+  ) {
+    throw new Error("Incorrect data type");
+  }
+  read = !!read;
+  const book = new Book(title, author, pages, read);
   myLibrary.push(book);
-
-  const newBook = document.createElement("div");
-  newBook.classList.add("book");
-  booksContainer.appendChild(newBook);
-
-  const bookTitle = document.createElement("h2");
-  bookTitle.setAttribute("class", "book-title");
-  bookTitle.innerText = book.title;
-
-  const bookAuthor = document.createElement("span");
-  bookAuthor.setAttribute("class", "book-author");
-  bookAuthor.innerText = book.author;
-
-  const bookButtons = document.createElement("div");
-  bookButtons.classList.add("book-btns");
-
-  const readStatusButton = document.createElement("button");
-  readStatusButton.setAttribute("type", "button");
-  readStatusButton.classList.add("status");
-  readStatusButton.innerText = "Read: " + book.isRead;
-  readStatusButton.addEventListener("click", () => {
-    book.toggleReadStatus();
-    readStatusButton.innerText = "Read: " + book.isRead;
-  });
-
-  const deleteButton = document.createElement("button");
-  deleteButton.setAttribute("type", "button");
-  deleteButton.classList.add("delete");
-  deleteButton.innerText = "Delete";
-  deleteButton.addEventListener("click", () => {
-    book.deleteBook();
-    newBook.remove();
-  });
-  bookButtons.append(readStatusButton, deleteButton);
-
-  const numberOfPages = document.createElement("span");
-  numberOfPages.setAttribute("class", "nb-of-pages");
-  numberOfPages.innerText = pages.value;
-  newBook.append(bookTitle, bookAuthor, bookButtons, numberOfPages);
-
-  newBook.dataset.bookIndex = myLibrary.indexOf(book);
-  return newBook;
 }
 
-newBookButton.addEventListener("click", () => {
-  dialog.showModal();
-});
+function displayBooks(library) {
+  const tableBody = document.querySelector("tbody");
+  tableBody.innerHTML = "";
+  library.forEach((book) => {
+    const row = document.createElement("tr");
+    const title = document.createElement("td");
+    title.textContent = book.title;
+    const author = document.createElement("td");
+    author.textContent = book.author;
+    const pages = document.createElement("td");
+    pages.textContent = book.pages;
+    const read = document.createElement("td");
+    read.textContent = book.read ? "Yes" : "No";
+    row.dataset.id = book.id;
+    const actions = document.createElement("td");
+    actions.classList.add("actions");
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-btn");
+    deleteButton.addEventListener("click", () => {
+      const index = myLibrary.indexOf(book);
+      myLibrary.splice(index, 1);
+      displayBooks(myLibrary);
+    });
+    const markRead = document.createElement("button");
+    markRead.textContent = "Change read status";
+    markRead.classList.add("read-status-btn");
+    markRead.addEventListener("click", () => {
+      book.toggleReadStatus();
+      read.textContent = book.read ? "Yes" : "No";
+    });
+    actions.append(markRead, deleteButton);
+    row.append(title, author, pages, read, actions);
+    tableBody.appendChild(row);
+  });
+}
 
-cancelButton.addEventListener("click", () => {
-  dialog.close();
-});
-
-title.addEventListener("input", () => {
-  if (title.validity.valueMissing) {
-    title.setCustomValidity("Please enter a valid title.");
-  } else {
-    title.setCustomValidity("");
-  }
-});
-
-author.addEventListener("input", () => {
-  if (author.validity.valueMissing) {
-    author.setCustomValidity("Please enter a valid author's name.");
-  } else {
-    author.setCustomValidity("");
-  }
-});
-
-pages.addEventListener("input", () => {
-  if (pages.validity.valueMissing) {
-    pages.setCustomValidity("Please provide the number of pages of the book.");
-  } else if (pages.validity.rangeOverflow) {
-    pages.setCustomValidity("Number of pages cannot be more than 4,290.");
-  } else if (pages.validity.rangeUnderflow) {
-    pages.setCustomValidity("Number of pages cannot be less than 1.");
-  } else {
-    pages.setCustomValidity("");
-  }
-});
-
-addBookButton.addEventListener("click", (e) => {
-  let isValid = true;
-
-  if (pages.validity.valueMissing) {
-    pages.setCustomValidity("Please provide the number of pages of the book.");
-    pages.reportValidity();
-    isValid = false;
-  } else if (pages.validity.rangeOverflow) {
-    pages.setCustomValidity("Number of pages cannot be more than 4,290.");
-    pages.reportValidity();
-    isValid = false;
-  } else if (pages.validity.rangeUnderflow) {
-    pages.setCustomValidity("Number of pages cannot be less than 1.");
-    pages.reportValidity();
-    isValid = false;
-  } else {
-    pages.setCustomValidity("");
-  }
-
-  if (author.validity.valueMissing) {
-    author.setCustomValidity("Please provide the name of the author's book.");
-    author.reportValidity();
-    isValid = false;
-  } else {
-    author.setCustomValidity("");
-  }
-
-  if (title.validity.valueMissing) {
-    title.setCustomValidity("Please enter a title for the book.");
-    title.reportValidity();
-    isValid = false;
-  } else {
-    title.setCustomValidity("");
-  }
-
-  console.log(isValid);
-  if (!isValid) {
-    e.preventDefault();
-  } else {
-    addBookToLibrary();
-    form.reset();
-  }
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
+  const title = data.get("title").trim();
+  const author = data.get("author").trim();
+  const pages = parseInt(data.get("pages").trim());
+  const read = data.get("read");
+  addBookToLibrary(title, author, pages, read);
+  displayBooks(myLibrary);
+  form.reset();
 });
