@@ -82,3 +82,7 @@ table, th, td {
 .delete-btn:hover {
   opacity: 0.8;
 }
+
+.required {
+  color: red;
+}

@@ -1,4 +1,9 @@
 const myLibrary = [];
+const form = document.querySelector("form");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+const formBtn = document.querySelector("form button");
 
 class Book {
   constructor(title, author, pages, read) {
@@ -66,7 +71,48 @@ function displayBooks(library) {
   });
 }
 
-const form = document.querySelector("form");
+titleInput.addEventListener("input", () => {
+  if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity("The title field must be filled!");
+  } else if (titleInput.validity.tooShort) {
+    titleInput.setCustomValidity(
+      "The title must be at least 3 characters long!",
+    );
+  } else if (titleInput.validity.tooLong) {
+    titleInput.setCustomValidity("The title must not exceed 50 characters!");
+  } else {
+    titleInput.setCustomValidity("");
+  }
+});
+
+authorInput.addEventListener("input", () => {
+  if (authorInput.validity.valueMissing) {
+    authorInput.setCustomValidity("The author name must be filled!");
+  } else if (authorInput.validity.tooShort) {
+    authorInput.setCustomValidity(
+      "The author's name must be at least 3 characters long!",
+    );
+  } else if (authorInput.validity.tooLong) {
+    authorInput.setCustomValidity(
+      "The author's name must not exceed 50 characters!",
+    );
+  } else {
+    authorInput.setCustomValidity("");
+  }
+});
+
+pagesInput.addEventListener("input", () => {
+  if (pagesInput.validity.valueMissing) {
+    pagesInput.setCustomValidity("Please insert the number of pages!");
+  } else if (pagesInput.validity.rangeUnderflow) {
+    pagesInput.setCustomValidity("Minimum number of pages should be 1!");
+  } else if (pagesInput.validity.rangeOverflow) {
+    pagesInput.setCustomValidity("Page number should not exceed 50!");
+  } else {
+    pagesInput.setCustomValidity("");
+  }
+});
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = new FormData(e.target);
